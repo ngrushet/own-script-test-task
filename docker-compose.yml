@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  web:
+    build:
+      context: ./own_script_test_task
+      dockerfile: Dockerfile
+    volumes:
+      - ./own_script_test_task:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    # restart: always
+    env_file:
+      - .env
+      
+  db:
+    image: postgres
+    ports:
+      - 5432:5432
+    restart: always
+    env_file:
+      - .env 
+
+  
+volumes:
+  db-data:
